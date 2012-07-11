@@ -6,8 +6,8 @@
  */
 
 $spans = new KConfig();
-$spans->left = $document->countModules('left') ? 2 : 0;
-$spans->right = $document->countModules('right') ? 2 : 0;
+$spans->left = $this->countModules('left') ? 2 : 0;
+$spans->right = $this->countModules('right') ? 2 : 0;
 $spans->content = 12 - $spans->left - $spans->right;
 ?>
 <!DOCTYPE html>
@@ -44,21 +44,56 @@ $spans->content = 12 - $spans->left - $spans->right;
 	</div>
 
 	<div class="container">
+
+		<?php if($this->countModules('top')): ?>
+			<div id="mod_top">
+				<jdoc:include type="modules" name="top" style="XHTML" />
+			</div>
+		<?php endif ?>
+
 		<div class="row">
+
 			<?php if($spans->left): ?>
-			<div class="span<?= $spans->left ?>">
-				<jdoc:include type="modules" name="left" style="rounded" />
+			<div id="mod_left" class="span<?= $spans->left ?>">
+				<jdoc:include type="modules" name="left" style="XHTML" />
 			</div>
 			<?php endif; ?>
-			<div class="span<?= $spans->content ?>">
-				<jdoc:include type="message" />
-				<jdoc:include type="component" />
+
+			<div id="main" class="span<?= $spans->content ?>">
+
+				<?php if($this->countModules('content_top')): ?>
+				<div id="mod_content_top">
+					<jdoc:include type="modules" name="content_top" style="XHTML" />
+				</div>
+				<?php endif ?>
+
+				<?php if($this->countModules('breadcrumbs')): ?>
+				<div id="mod_breadcrumbs">
+					<jdoc:include type="modules" name="breadcrumbs" style="raw" />
+				</div>
+				<?php endif ?>
+
+				<div id="messages">
+					<jdoc:include type="message" />
+				</div>
+
+				<div id="component">
+					<jdoc:include type="component" />
+				</div>
+
+				<?php if($this->countModules('content_bottom')): ?>
+				<div id="mod_content_bottom">
+					<jdoc:include type="modules" name="content_bottom" style="XHTML" />
+				</div>
+				<?php endif ?>
 			</div>
+
 			<?php if($spans->right): ?>
-			<div class="span<?= $spans->right ?>">
-				<jdoc:include type="modules" name="right" style="rounded" />
+			<div id="mod_right" class="span<?= $spans->right ?>">
+				<jdoc:include type="modules" name="right" style="XHTML" />
 			</div>
 			<?php endif; ?>
+
 		</div>
 	</div>
 

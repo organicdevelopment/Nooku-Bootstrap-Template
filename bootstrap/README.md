@@ -1,2 +1,0 @@
-Nooku-Bootstrap-Template
-========================
